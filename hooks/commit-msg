@@ -4,7 +4,7 @@ MSG="$(cat "$MSG_FILE")"
 
 # Basic conventional commit format
 if [[ ! "$MSG" =~ ^(feat|fix|chore|refactor):[[:space:]]+.+$ ]]; then
-  echo "❌ Commit message must follow 'feat|fix|chore|refactor: description'"
+  echo "❌ Commit messages must follow 'feat|fix|chore|refactor: description'"
   exit 1
 fi
 
