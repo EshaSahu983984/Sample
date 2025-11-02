@@ -1,6 +1,14 @@
 #!/bin/bash
 # Branch naming enforcement
-branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Try to get branch name safely, even before first commit
+branch_name=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+
+if [[ -z "$branch_name" ]]; then
+  echo "⚠️  No branch found (first commit likely). Skipping branch name check."
+  exit 0
+fi
+
 pattern="^(feature|bugfix|hotfix)\/[a-z0-9._-]+$"
 
 if [[ ! $branch_name =~ $pattern ]]; then
