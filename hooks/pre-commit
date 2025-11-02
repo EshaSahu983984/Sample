@@ -1,0 +1,15 @@
+#!/bin/bash
+# Branch naming enforcement
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+pattern="^(feature|bugfix|hotfix)\/[a-z0-9._-]+$"
+
+if [[ ! $branch_name =~ $pattern ]]; then
+  echo "❌ Invalid branch name: $branch_name"
+  echo "Use: feature/<ticket>-short-desc or bugfix/<ticket>-desc"
+  exit 1
+fi
+
+# Optionally run local linters (ruff/black) here
+# ruff check .
+# black --check .
+exit 0

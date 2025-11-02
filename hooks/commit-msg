@@ -1,0 +1,18 @@
+#!/bin/bash
+MSG_FILE="$1"
+MSG="$(cat "$MSG_FILE")"
+
+# Basic conventional commit format
+if [[ ! "$MSG" =~ ^(feat|fix|chore|refactor):[[:space:]]+.+$ ]]; then
+  echo "❌ Commit message must follow 'feat|fix|chore|refactor: description'"
+  exit 1
+fi
+
+# Semantic check via OpenAI (optional)
+python3 .githooks/check_commit_semantics_openai.py "$MSG_FILE"
+rc=$?
+if [ $rc -ne 0 ]; then
+  echo "❌ Commit blocked due to vague message. Use Copilot in VS Code to generate a better message."
+  exit $rc
+fi
+exit 0
