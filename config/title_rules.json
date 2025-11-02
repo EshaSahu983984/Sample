@@ -1,4 +1,0 @@
-{
-  "allowed_prefixes": ["feat", "fix", "chore", "refactor"],
-  "pattern": "^(feat|fix|chore|refactor): .+"
-}
